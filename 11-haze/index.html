@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEN X SOFT CLUB — HEAT HAZE</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--night:#160508;--ox:#6b0f1a;--wine:#a11d2e;--gold:#d9a441;--ember:#ff6b3d;--bone:#f3e3d0}
+body{background:var(--night);color:var(--bone);overflow-x:hidden;
+ font:400 14px/1.6 "Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.mono{font-family:ui-monospace,Menlo,monospace;letter-spacing:.16em}
+svg.defs{position:fixed;width:0;height:0}
+
+header{position:fixed;z-index:40;top:0;left:0;right:0;display:flex;justify-content:space-between;
+ align-items:center;padding:16px 26px;font-size:11px;letter-spacing:.34em;
+ background:#160508b3;backdrop-filter:blur(14px);border-bottom:1px solid #d9a4412e}
+header nav a{color:#c39a86;text-decoration:none;margin-left:20px;font-size:10px}
+header nav a:hover{color:var(--gold)}
+
+/* ————— the heat ————— */
+.heat{position:relative;min-height:100svh;overflow:hidden;display:grid;align-content:center;
+ padding:110px clamp(22px,5vw,64px) 70px}
+.warp{filter:url(#haze);will-change:filter}
+.embers{position:absolute;inset:-12%;z-index:0}
+.embers div{position:absolute;border-radius:50%;filter:blur(64px)}
+.heat:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+ background:radial-gradient(95% 75% at 50% 62%,transparent 24%,#160508e6),
+ repeating-linear-gradient(0deg,#16050826 0 2px,transparent 2px 6px)}
+.heat .txt{position:relative;z-index:2}
+h1{font-size:clamp(42px,10.5vw,168px);font-weight:200;line-height:.86;letter-spacing:-.045em}
+h1 b{display:block;font-weight:700;
+ background:linear-gradient(96deg,var(--gold),var(--ember) 46%,var(--bone));
+ -webkit-background-clip:text;background-clip:text;color:transparent}
+.heat .cool{position:relative;z-index:3;margin-top:26px;max-width:38ch;color:#d3b6a4;font-size:16px}
+.gauge{position:absolute;z-index:3;bottom:26px;left:clamp(22px,5vw,64px);right:clamp(22px,5vw,64px);
+ display:flex;gap:26px;align-items:center;flex-wrap:wrap;font-size:10px;letter-spacing:.24em;
+ color:#b08a72;border-top:1px solid #d9a4412e;padding-top:12px}
+.gauge b{color:var(--bone);font-weight:400}
+.bar{flex:1;min-width:120px;height:3px;background:#d9a44133;position:relative;overflow:hidden}
+.bar i{position:absolute;inset:0;transform-origin:left;transform:scaleX(0);
+ background:linear-gradient(90deg,var(--wine),var(--ember),var(--gold))}
+
+section{position:relative;z-index:5;background:#110406;padding:90px clamp(22px,5vw,64px)}
+h2{font-size:10px;letter-spacing:.42em;color:var(--gold);margin-bottom:22px}
+.lede{font-size:clamp(19px,2.4vw,30px);font-weight:300;max-width:31ch;line-height:1.25;
+ color:#e3cdb9;margin-bottom:54px}
+.rack{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.pc{border:1px solid #d9a44126;overflow:hidden;background:#1b070a;cursor:pointer;transition:.25s}
+.pc:hover{border-color:var(--gold);transform:translateY(-4px)}
+.pc .s{height:210px;position:relative;overflow:hidden}
+.pc .s i{position:absolute;inset:-28%;filter:blur(30px);transition:.6s cubic-bezier(.2,.8,.2,1);
+ background:radial-gradient(circle at 38% 36%,var(--a),transparent 60%),
+            radial-gradient(circle at 72% 72%,var(--b),transparent 58%),var(--c)}
+.pc:hover .s i{filter:blur(11px);transform:scale(1.18) rotate(4deg)}
+.pc .m{padding:13px;display:flex;justify-content:space-between;font-size:11px;letter-spacing:.13em}
+.pc .m b{color:var(--gold);font-weight:400}
+footer{position:relative;z-index:5;background:#110406;border-top:1px solid #d9a44126;
+ padding:26px clamp(22px,5vw,64px) 60px;display:flex;justify-content:space-between;
+ flex-wrap:wrap;gap:14px;font-size:10px;letter-spacing:.24em;color:#b08a72}
+</style>
+</head>
+<body>
+
+<svg class="defs"><defs>
+ <filter id="haze" x="-12%" y="-12%" width="124%" height="124%">
+   <feTurbulence id="turb" type="fractalNoise" baseFrequency="0.008 0.016"
+     numOctaves="2" seed="7" result="n"/>
+   <feDisplacementMap id="disp" in="SourceGraphic" in2="n" scale="14"
+     xChannelSelector="R" yChannelSelector="G"/>
+ </filter>
+</defs></svg>
+
+<header>
+  <span>GEN X SOFT CLUB</span>
+  <nav><a href="#idx">RACK</a><a href="#idx">SHOP</a><a href="#idx">CLUB</a><a href="#idx">BAG (0)</a></nav>
+</header>
+
+<div class="heat" id="heat">
+  <div class="warp">
+    <div class="embers" id="embers"></div>
+    <div class="txt">
+      <h1>THE AIR IS<b>DOING THAT<br>THING AGAIN.</b></h1>
+    </div>
+  </div>
+  <p class="cool">Cut for forty degrees in the shade. Move fast and the air bends harder —
+  slow down and it settles.</p>
+  <div class="gauge mono">
+    <span>SURFACE TEMP <b id="tp">31.0°</b></span>
+    <div class="bar"><i id="bi"></i></div>
+    <span>DISTORTION <b id="ds">14.0</b></span>
+  </div>
+</div>
+
+<section id="idx">
+  <p class="lede">Eight pieces, dyed the colour of a long afternoon.</p>
+  <h2>THE RACK / 08</h2>
+  <div class="rack" id="rack"></div>
+</section>
+
+<footer class="mono">
+  <span>© GEN X SOFT CLUB</span><span>DO NOT STORE ABOVE 40°</span><span>SS26</span>
+</footer>
+
+<script>
+/* embers behind the warped type */
+const E=document.getElementById('embers');
+[['#a11d2e','44%','8%','-14%'],['#ff6b3d','30%','58%','12%'],['#d9a441','34%','22%','52%'],
+ ['#6b0f1a','52%','74%','44%'],['#ff9d5e','22%','44%','72%']].forEach(([c,s,l,t])=>{
+  const d=document.createElement('div');
+  d.style.cssText=`background:${c};width:${s};aspect-ratio:1;left:${l};top:${t};opacity:.72`;
+  E.appendChild(d);
+});
+
+/* cursor speed drives the displacement; it cools back down when you stop */
+const disp=document.getElementById('disp'),turb=document.getElementById('turb');
+let heat=14,target=14,px=null,py=null,seed=7;
+addEventListener('pointermove',e=>{
+  if(px!==null){
+    const v=Math.hypot(e.clientX-px,e.clientY-py);
+    target=Math.min(46,14+v*1.1);
+  }
+  px=e.clientX;py=e.clientY;
+});
+(function loop(){
+  target+=(14-target)*.035;              // cool down
+  heat+=(target-heat)*.12;
+  disp.setAttribute('scale',heat.toFixed(1));
+  seed+=.35; turb.setAttribute('seed',(seed|0)%90);
+  const t=(31+(heat-14)*.34);
+  tp.textContent=t.toFixed(1)+'°';
+  ds.textContent=heat.toFixed(1);
+  bi.style.transform='scaleX('+Math.min(1,(heat-14)/32).toFixed(3)+')';
+  requestAnimationFrame(loop);
+})();
+
+const P=[['SUN-BLEACHED ANORAK','¥42,000','#ff6b3d','#d9a441','#3a0d12'],
+['EMBER FLEECE','¥31,000','#a11d2e','#ff6b3d','#2a070d'],
+['DRY MESH TEE','¥12,500','#d9a441','#f3e3d0','#3d1c0e'],
+['DUSK CARGO','¥28,000','#6b0f1a','#a11d2e','#1e060a'],
+['SHADE DUFFEL','¥34,000','#f3e3d0','#d9a441','#43230f'],
+['HEAT SCARF','¥11,200','#ff9d5e','#a11d2e','#2f0c0f'],
+['NOON CAP','¥9,800','#d9a441','#ff6b3d','#331109'],
+['SAND SOCK ×3','¥4,400','#f3e3d0','#ff9d5e','#3a1a10']];
+document.getElementById('rack').innerHTML=P.map(([n,p,a,b,c])=>
+ `<article class="pc"><div class="s"><i style="--a:${a};--b:${b};--c:${c}"></i></div>
+  <div class="m mono"><span>${n}</span><b>${p}</b></div></article>`).join('');
+</script>
+</body>
+</html>

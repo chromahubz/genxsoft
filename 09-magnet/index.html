@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEN X SOFT CLUB — MAGNET</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--steel:#c3c8cd;--chrome:#eef1f4;--slate:#5b646d;--iron:#22262a;--scar:#ff2d2d}
+body{background:#0e1013;color:var(--chrome);overflow-x:hidden;
+ font:400 14px/1.6 "Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.mono{font-family:ui-monospace,Menlo,monospace;letter-spacing:.16em}
+
+header{position:fixed;z-index:40;top:0;left:0;right:0;display:flex;justify-content:space-between;
+ align-items:center;padding:16px 26px;font-size:11px;letter-spacing:.34em;
+ background:#0e1013b3;backdrop-filter:blur(16px);border-bottom:1px solid #ffffff14}
+header nav a{color:#9aa4ad;text-decoration:none;margin-left:20px;font-size:10px}
+header nav a:hover{color:var(--scar)}
+
+/* ————— liquid chrome hero ————— */
+.hero{position:relative;min-height:100svh;overflow:hidden;display:grid;align-content:center;
+ padding:110px clamp(22px,5vw,64px) 60px}
+.chrome{position:absolute;inset:-20%;z-index:0;
+ background:conic-gradient(from 200deg at 42% 46%,#0e1013,#8f9aa3,#eef1f4,#4c555d,#c3c8cd,#20242a,#eef1f4,#0e1013);
+ filter:blur(58px) contrast(1.35) saturate(.25);animation:spin 34s linear infinite}
+@keyframes spin{to{transform:rotate(1turn) scale(1.08)}}
+.hero:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+ background:repeating-linear-gradient(0deg,#0e101326 0 2px,transparent 2px 5px),
+ radial-gradient(90% 70% at 50% 40%,transparent 30%,#0e1013cc)}
+.hero h1,.hero .sub{position:relative;z-index:2}
+.hero h1{font-size:clamp(44px,11vw,176px);font-weight:800;line-height:.84;letter-spacing:-.05em;
+ text-transform:uppercase}
+.hero h1 span{display:block;
+ background:linear-gradient(180deg,#ffffff,#aab3bb 42%,#5b646d 52%,#eef1f4 70%,#8e979f);
+ -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1 em{font-style:normal;color:var(--scar);-webkit-text-fill-color:var(--scar)}
+.hero .sub{margin-top:26px;max-width:40ch;color:#b6bec5;font-size:16px}
+.cue{position:absolute;z-index:2;bottom:26px;left:clamp(22px,5vw,64px);font-size:10px;
+ letter-spacing:.3em;color:var(--slate)}
+
+/* ————— magnetic grid ————— */
+section{position:relative;z-index:5;padding:90px clamp(22px,5vw,64px)}
+h2{font-size:10px;letter-spacing:.42em;color:var(--scar);margin-bottom:22px}
+.lede{font-size:clamp(19px,2.4vw,30px);font-weight:300;max-width:31ch;line-height:1.25;
+ color:#cdd4da;margin-bottom:50px}
+.mag{position:relative;display:grid;grid-template-columns:repeat(10,1fr);gap:7px;
+ touch-action:pan-y}
+.cell{position:relative;aspect-ratio:1;overflow:hidden;border:1px solid #ffffff1a;
+ will-change:transform;background:#14171b}
+.cell i{position:absolute;inset:-45%;filter:blur(18px);
+ background:radial-gradient(circle at 40% 38%,var(--a),transparent 62%),
+            radial-gradient(circle at 72% 70%,var(--b),transparent 58%),var(--c)}
+.cell b{position:absolute;left:9px;bottom:8px;font-size:9px;letter-spacing:.2em;font-weight:400;
+ color:#eef1f4;opacity:0;transition:opacity .25s}
+.cell.hot b{opacity:1}
+.cell.hot{border-color:var(--scar);z-index:3}
+.rd{margin-top:24px;display:flex;gap:26px;flex-wrap:wrap;font-size:10px;letter-spacing:.24em;color:var(--slate)}
+.rd b{color:var(--chrome);font-weight:400}
+
+.list{margin-top:80px;border-top:1px solid #ffffff1a}
+.list a{display:grid;grid-template-columns:48px 1fr auto auto;gap:18px;align-items:center;
+ padding:19px 4px;border-bottom:1px solid #ffffff12;color:inherit;text-decoration:none;transition:.18s}
+.list a:hover{background:#171b1f;padding-left:16px}
+.list a i{font-style:normal;font-size:10px;color:var(--slate)}
+.list a b{font-weight:400;font-size:17px}
+.list a em{font-style:normal;font-size:10px;letter-spacing:.22em;color:var(--slate)}
+.list a u{text-decoration:none;color:var(--scar);font-size:12px}
+footer{border-top:1px solid #ffffff12;padding:26px clamp(22px,5vw,64px) 60px;display:flex;
+ justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:10px;letter-spacing:.24em;color:var(--slate)}
+@media(max-width:860px){.mag{grid-template-columns:repeat(6,1fr)}}
+@media(max-width:520px){.mag{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+
+<header>
+  <span>GEN X SOFT CLUB</span>
+  <nav><a href="#idx">HARDWARE</a><a href="#idx">SHOP</a><a href="#idx">CLUB</a><a href="#idx">BAG (0)</a></nav>
+</header>
+
+<div class="hero">
+  <div class="chrome"></div>
+  <h1><span>POLISHED</span><span>TO A <em>DULL</em></span><span>SHINE</span></h1>
+  <p class="sub">Hardware-grade softwear. Brushed, bonded, bead-blasted.
+  The grid below is magnetic — it leans toward whatever you point at.</p>
+  <div class="cue mono">SCROLL FOR THE GRID</div>
+</div>
+
+<section id="idx">
+  <p class="lede">Thirty cells. One of them is your size.</p>
+  <h2>MAGNETIC INDEX / 30</h2>
+  <div class="mag" id="mag"></div>
+  <div class="rd mono">
+    <span>FIELD STRENGTH <b id="fs">0.00</b></span>
+    <span>NEAREST CELL <b id="nc">—</b></span>
+    <span>POLARITY <b id="po">ATTRACT</b></span>
+  </div>
+
+  <div class="list" id="list"></div>
+</section>
+
+<footer class="mono">
+  <span>© GEN X SOFT CLUB</span><span>MAGNETIC, NOT MAGNETIC-PERSONALITY</span><span>SS26</span>
+</footer>
+
+<script>
+const PAL=[['#eef1f4','#5b646d','#1a1e22'],['#ff2d2d','#7a1414','#1c1214'],
+ ['#c3c8cd','#22262a','#141719'],['#9aa4ad','#eef1f4','#20252a'],
+ ['#ff2d2d','#c3c8cd','#241a1c'],['#5b646d','#c3c8cd','#161a1d']];
+const NAMES=['ANORAK','FLEECE','TEE','CARGO','DUFFEL','SCARF','CAP','SOCK','PARKA','VEST',
+ 'SHORT','POUCH','LINER','SHELL','HOOD','PANT','CREW','BELT','GLOVE','BEANIE',
+ 'TOTE','WALLET','KEYRING','LANYARD','PATCH','MASK','MITT','SLIP','WRAP','CLIP'];
+
+const mag=document.getElementById('mag'),cells=[];
+NAMES.forEach((n,i)=>{
+  const p=PAL[(i*7)%PAL.length];
+  const d=document.createElement('div');d.className='cell';
+  d.innerHTML=`<i style="--a:${p[0]};--b:${p[1]};--c:${p[2]};transform:rotate(${(i*37)%360}deg)"></i><b class="mono">${n}</b>`;
+  mag.appendChild(d);cells.push({el:d,name:n,x:0,y:0,s:1,tx:0,ty:0,ts:1});
+});
+
+let mx=-9999,my=-9999,pol=1;
+addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY});
+addEventListener('pointerdown',()=>{pol=-1;po.textContent='REPEL'});
+addEventListener('pointerup',()=>{pol=1;po.textContent='ATTRACT'});
+mag.addEventListener('pointerleave',()=>{mx=-9999;my=-9999});
+
+const R=240;
+(function loop(){
+  let best=null,bd=1e9,fs=0;
+  cells.forEach(c=>{
+    const r=c.el.getBoundingClientRect();
+    const cx=r.left+r.width/2, cy=r.top+r.height/2;
+    const dx=mx-cx, dy=my-cy, d=Math.hypot(dx,dy);
+    const f=Math.max(0,1-d/R);            // falloff
+    const e=f*f*(3-2*f);                   // smoothstep
+    c.tx=dx*e*.34*pol; c.ty=dy*e*.34*pol; c.ts=1+e*.16*pol;
+    c.x+=(c.tx-c.x)*.14; c.y+=(c.ty-c.y)*.14; c.s+=(c.ts-c.s)*.14;
+    c.el.style.transform=`translate3d(${c.x}px,${c.y}px,0) scale(${c.s})`;
+    c.el.classList.toggle('hot',e>.55);
+    if(e>fs)fs=e;
+    if(d<bd){bd=d;best=c}
+  });
+  document.getElementById('fs').textContent=fs.toFixed(2);
+  document.getElementById('nc').textContent=(bd<R&&best)?best.name:'—';
+  requestAnimationFrame(loop);
+})();
+
+const P=[['SOFT SHELL ANORAK','OUTER','¥42,000'],['HALF-ZIP FLEECE','MID','¥31,000'],
+['MESH LAYER TEE','BASE','¥12,500'],['CARGO PANT','LOWER','¥28,000'],
+['PACKABLE DUFFEL','CARRY','¥34,000'],['NYLON SCARF','ACC','¥11,200'],
+['TERMINAL CAP','ACC','¥9,800'],['CREW SOCK ×3','ACC','¥4,400']];
+document.getElementById('list').innerHTML=P.map(([n,c,p],i)=>
+ `<a href="#"><i>${String(i+1).padStart(2,'0')}</i><b>${n}</b><em>${c}</em><u>${p}</u></a>`).join('');
+</script>
+</body>
+</html>

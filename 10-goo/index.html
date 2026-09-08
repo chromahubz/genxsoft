@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEN X SOFT CLUB — SUGAR</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#2b1030;--bub:#ff5ea8;--sky:#7fd0ff;--lil:#cbb0ff;--cream:#fff6fa;--sun:#ffe45e}
+body{background:var(--cream);color:var(--ink);overflow-x:hidden;
+ font:400 14px/1.6 "Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.mono{font-family:ui-monospace,Menlo,monospace;letter-spacing:.16em}
+svg.defs{position:fixed;width:0;height:0}
+
+/* ————— gooey metaball cursor ————— */
+.goo{position:fixed;inset:0;z-index:0;filter:url(#goo);pointer-events:none;overflow:hidden}
+.mb{position:absolute;border-radius:50%;will-change:transform;
+ transform:translate3d(-50%,-50%,0)}
+.bg{position:fixed;inset:0;z-index:-1;
+ background:radial-gradient(70% 60% at 20% 15%,#ffd9ea,transparent 60%),
+            radial-gradient(60% 60% at 85% 30%,#d9f0ff,transparent 62%),
+            radial-gradient(80% 70% at 50% 100%,#efe0ff,transparent 60%),var(--cream)}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.4;
+ background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence baseFrequency='.9' numOctaves='2'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>")}
+
+header{position:fixed;z-index:40;top:0;left:0;right:0;display:flex;justify-content:space-between;
+ align-items:center;padding:16px 26px;font-size:11px;letter-spacing:.34em}
+header nav a{color:#8a5f86;text-decoration:none;margin-left:20px;font-size:10px}
+header nav a:hover{color:var(--bub)}
+
+.hero{position:relative;z-index:5;min-height:100svh;display:grid;align-content:center;
+ padding:110px clamp(22px,5vw,64px) 40px;pointer-events:none}
+.hero h1{font-size:clamp(46px,12vw,190px);font-weight:800;line-height:.82;letter-spacing:-.055em;
+ text-transform:lowercase;color:var(--ink)}
+.hero h1 em{font-style:normal;color:var(--bub)}
+.hero p{margin-top:24px;max-width:36ch;font-size:16px;color:#6b3c66;pointer-events:auto}
+
+/* ————— inertia filmstrip ————— */
+.strip-wrap{position:relative;z-index:5;padding:60px 0 20px}
+h2{font-size:10px;letter-spacing:.42em;color:#a4479a;margin:0 clamp(22px,5vw,64px) 20px}
+.strip{display:flex;gap:14px;padding:0 clamp(22px,5vw,64px);overflow-x:auto;
+ scrollbar-width:none;cursor:grab;user-select:none}
+.strip::-webkit-scrollbar{display:none}
+.strip.drag{cursor:grabbing}
+.pop{flex:0 0 clamp(200px,26vw,290px)}
+.pop .b{aspect-ratio:3/4;position:relative;overflow:hidden;border-radius:200px 200px 18px 18px;
+ background:#fff;box-shadow:0 20px 50px #ff5ea826}
+.pop .b i{position:absolute;inset:-28%;filter:blur(30px);transition:.6s cubic-bezier(.2,.8,.2,1);
+ background:radial-gradient(circle at 40% 34%,var(--a),transparent 60%),
+            radial-gradient(circle at 70% 74%,var(--b),transparent 58%),var(--c)}
+.pop:hover .b i{filter:blur(11px);transform:scale(1.16)}
+.pop .m{display:flex;justify-content:space-between;padding:11px 3px;font-size:11px;letter-spacing:.12em}
+.pop .m b{color:var(--bub);font-weight:400}
+.drag-note{margin:14px clamp(22px,5vw,64px) 0;font-size:10px;letter-spacing:.3em;color:#a4479a}
+
+section{position:relative;z-index:5;padding:80px clamp(22px,5vw,64px)}
+.lede{font-size:clamp(19px,2.4vw,30px);font-weight:300;max-width:30ch;line-height:1.25;color:#5b2a58}
+.flav{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:44px}
+.flav div{padding:16px;border-radius:16px;font-size:10px;letter-spacing:.2em;color:var(--ink);
+ background:var(--f);cursor:pointer;transition:.2s}
+.flav div:hover{transform:translateY(-4px) rotate(-1.5deg)}
+.flav div b{display:block;font-size:13px;letter-spacing:.02em;font-weight:500;margin-top:6px}
+footer{position:relative;z-index:5;padding:26px clamp(22px,5vw,64px) 60px;
+ border-top:1px solid #2b103022;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
+ font-size:10px;letter-spacing:.24em;color:#8a5f86}
+@media(max-width:640px){.goo{display:none}}
+</style>
+</head>
+<body>
+
+<svg class="defs"><defs><filter id="goo">
+  <feGaussianBlur in="SourceGraphic" stdDeviation="16" result="b"/>
+  <feColorMatrix in="b" mode="matrix"
+    values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -11"/>
+</filter></defs></svg>
+
+<div class="bg"></div>
+<div class="goo" id="gooLayer"></div>
+<div class="grain"></div>
+
+<header>
+  <span>GEN X SOFT CLUB</span>
+  <nav><a href="#f">FLAVOURS</a><a href="#f">SHOP</a><a href="#f">CLUB</a><a href="#f">BAG (0)</a></nav>
+</header>
+
+<div class="hero">
+  <h1>soft serve<br><em>for the</em> body</h1>
+  <p>Sweet cuts, no sugar crash. The blobs follow you and stick together —
+  drag the strip below like you mean it.</p>
+</div>
+
+<div class="strip-wrap">
+  <h2>SCOOPS / 08</h2>
+  <div class="strip" id="strip"></div>
+  <div class="drag-note mono">CLICK AND FLING →</div>
+</div>
+
+<section id="f">
+  <p class="lede">Eight flavours. All of them melt.</p>
+  <div class="flav" id="flav"></div>
+</section>
+
+<footer class="mono">
+  <span>© GEN X SOFT CLUB</span><span>KEEP AWAY FROM DIRECT SUNLIGHT</span><span>SS26</span>
+</footer>
+
+<script>
+/* metaballs: a big head blob plus a lagging tail that merges through the goo filter */
+const goo=document.getElementById('gooLayer'),COL=['#ff5ea8','#7fd0ff','#cbb0ff','#ffe45e'];
+const balls=[];
+for(let i=0;i<9;i++){
+  const d=document.createElement('div');d.className='mb';
+  const sz=i===0?158:132-i*12;
+  d.style.cssText=`width:${sz}px;height:${sz}px;background:${COL[i%COL.length]};opacity:${i===0?.95:.8}`;
+  goo.appendChild(d);
+  balls.push({el:d,x:innerWidth/2,y:innerHeight/2});
+}
+let mx=innerWidth/2,my=innerHeight*.42;
+addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY});
+(function loop(){
+  balls.forEach((b,i)=>{
+    const t=i===0?{x:mx,y:my}:balls[i-1];
+    b.x+=(t.x-b.x)*(i===0?.2:.19);
+    b.y+=(t.y-b.y)*(i===0?.2:.19);
+    b.el.style.transform=`translate3d(${b.x}px,${b.y}px,0) translate(-50%,-50%)`;
+  });
+  requestAnimationFrame(loop);
+})();
+
+/* filmstrip with grab-and-fling momentum */
+const S=[['SOFT SERVE ANORAK','¥42,000','#ff5ea8','#ffe45e','#ffd9ea'],
+['SPRINKLE FLEECE','¥31,000','#7fd0ff','#cbb0ff','#e4f3ff'],
+['VANILLA MESH TEE','¥12,500','#ffe45e','#fff6fa','#fff2d9'],
+['BUBBLEGUM CARGO','¥28,000','#ff5ea8','#cbb0ff','#ffe0f0'],
+['SORBET DUFFEL','¥34,000','#cbb0ff','#7fd0ff','#efe4ff'],
+['TAFFY SCARF','¥11,200','#ff8fc4','#ffe45e','#ffe9f3'],
+['CONE CAP','¥9,800','#7fd0ff','#ff5ea8','#ddf1ff'],
+['SUGAR SOCK ×3','¥4,400','#ffe45e','#ff5ea8','#fff4de']];
+const strip=document.getElementById('strip');
+strip.innerHTML=S.map(([n,p,a,b,c])=>
+ `<article class="pop"><div class="b"><i style="--a:${a};--b:${b};--c:${c}"></i></div>
+  <div class="m mono"><span>${n}</span><b>${p}</b></div></article>`).join('');
+
+let down=false,sx=0,sl=0,v=0,last=0,raf=null;
+strip.addEventListener('pointerdown',e=>{down=true;strip.classList.add('drag');
+ sx=e.clientX;sl=strip.scrollLeft;last=e.clientX;v=0;cancelAnimationFrame(raf)});
+addEventListener('pointermove',e=>{if(!down)return;
+ strip.scrollLeft=sl-(e.clientX-sx); v=e.clientX-last; last=e.clientX});
+addEventListener('pointerup',()=>{if(!down)return;down=false;strip.classList.remove('drag');
+ (function glide(){ v*=.94; strip.scrollLeft-=v;
+   if(Math.abs(v)>.4)raf=requestAnimationFrame(glide)})()});
+
+const F=[['BUBBLEGUM','#ff5ea8'],['SKY','#7fd0ff'],['LILAC','#cbb0ff'],['LEMON','#ffe45e'],
+ ['COTTON','#ffd9ea'],['MINT ICE','#c4f6e8'],['PEACH','#ffcfae'],['CREAM','#fff6fa']];
+document.getElementById('flav').innerHTML=F.map(([n,c],i)=>
+ `<div style="--f:${c}"><span class="mono">NO.${String(i+1).padStart(2,'0')}</span><b>${n}</b></div>`).join('');
+</script>
+</body>
+</html>
