@@ -30,12 +30,14 @@ header nav a:hover{color:var(--ink)}
 /* ————— hero ————— */
 .hero{position:relative;z-index:5;min-height:100svh;display:grid;place-items:center;
  padding:120px 28px 60px;text-align:center}
+.hero>div:not(.figs){position:relative;z-index:6}
 .hero h1{font-size:clamp(40px,8vw,120px);font-weight:200;letter-spacing:-.03em;line-height:.95;color:#22384a}
 .hero h1 b{font-weight:700;display:block;letter-spacing:-.05em}
 .hero p{max-width:52ch;margin:26px auto 0;color:#4a677f;font-size:16px}
-.figs{position:absolute;inset:0;pointer-events:none;z-index:4}
-.fig{position:absolute;width:9px;height:26px;background:#2b3f50;border-radius:3px 3px 0 0;opacity:.55}
-.fig:after{content:"";position:absolute;left:9px;top:14px;width:8px;height:5px;background:#2b3f50;border-radius:1px}
+.figs{position:absolute;inset:0;pointer-events:none;z-index:1}
+.fig{position:absolute;width:7px;height:20px;background:#2b3f50;border-radius:3px 3px 0 0;opacity:.4;
+ transform-origin:50% 100%}
+.fig:after{content:"";position:absolute;left:7px;top:11px;width:6px;height:4px;background:#2b3f50;border-radius:1px}
 .fig.walk{animation:walk 26s linear infinite}
 @keyframes walk{from{transform:translateX(-6vw)}to{transform:translateX(106vw)}}
 .scroll{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
@@ -170,9 +172,9 @@ footer a:hover{color:var(--cyan)}
 <script>
 const figs=document.getElementById('figs');
 for(let i=0;i<7;i++){const f=document.createElement('div');
- f.className='fig walk';f.style.bottom=(8+Math.random()*46)+'%';
- const sc=(.7+Math.random()*1.9).toFixed(2);
- f.style.transform='scale('+sc+')';f.style.opacity=(.2+Math.random()*.4).toFixed(2);
+ f.className='fig walk';f.style.bottom=(5+Math.random()*15)+'%';
+ const sc=(.55+Math.random()*1.05).toFixed(2);
+ f.style.transform='scale('+sc+')';f.style.opacity=(.16+Math.random()*.28).toFixed(2);
  f.style.animationDuration=(20+Math.random()*30)+'s';
  f.style.animationDelay=(-Math.random()*40)+'s';
  if(Math.random()<.4)f.style.animationDirection='reverse';

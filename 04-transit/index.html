@@ -16,16 +16,17 @@ body{background:#0a1d2e;color:var(--ice);overflow-x:hidden;
  background:linear-gradient(120deg,#cfe6ee,#93c6d8 40%,#dfeff2 70%,#8fb9d6)}
 .lyr{position:absolute;inset:-6%;will-change:transform}
 .train{background:
- linear-gradient(90deg,#12336bcc,#2a6fa8aa 22%,#c8e6f0 40%,#1b4b86bb 62%,#7fb6cf 80%,#123a6bcc);
- filter:blur(9px);opacity:.72;
+ linear-gradient(90deg,#0e2a5ce6,#2a6fa8cc 18%,#dff0f7 34%,#14407ae6 52%,#8fc4da 70%,#0e2f66e6),
+ repeating-linear-gradient(90deg,#ffffff00 0 42px,#e8f6fb55 42px 86px);
+ background-blend-mode:overlay;filter:blur(4px);opacity:.8;
  mask-image:linear-gradient(#0000,#000 22%,#000 72%,#0000)}
 .platform{background:linear-gradient(#0000 58%,#4d7a9433 58%,#2b4f6b55)}
 .rule{position:absolute;border:1px solid #ffffff9c;mix-blend-mode:overlay}
-.glyphs{position:absolute;inset:0;overflow:hidden;opacity:.5;mix-blend-mode:overlay}
-.gcol{position:absolute;top:-120%;font-size:11px;line-height:1.35;color:#0d3a5e;
- writing-mode:vertical-rl;letter-spacing:.1em;white-space:nowrap;
+.glyphs{position:absolute;inset:0;overflow:hidden;opacity:.5;mix-blend-mode:multiply}
+.gcol{position:absolute;top:0;font-size:12px;line-height:1.35;color:#0a3358;
+ writing-mode:vertical-rl;letter-spacing:.34em;white-space:nowrap;
  animation:fall linear infinite}
-@keyframes fall{to{transform:translateY(240%)}}
+@keyframes fall{from{transform:translateY(-108vh)}to{transform:translateY(108vh)}}
 .swatch{position:absolute;border:1px solid #ffffffcc;
  background:linear-gradient(140deg,var(--a),var(--b));filter:blur(2px);opacity:.85}
 .scan{position:absolute;inset:0;pointer-events:none;
@@ -46,6 +47,13 @@ body{background:#0a1d2e;color:var(--ice);overflow-x:hidden;
 .sub{margin-top:22px;font-size:clamp(13px,2vw,26px);letter-spacing:.5em;color:#dff4fa;
  text-transform:uppercase}
 .sub2{margin-top:auto;font-size:clamp(12px,1.7vw,20px);letter-spacing:.42em;color:#ffffffcc;font-style:italic}
+.plate{position:absolute;z-index:9;right:clamp(22px,5vw,72px);top:46%;width:min(340px,42vw);
+ border:1px solid #ffffffcc;background:#e6f4f9a6;backdrop-filter:blur(9px);
+ padding:16px 18px;font-size:10px;letter-spacing:.2em;color:#0d3a5e}
+.plate .pt{font-size:9px;color:#0f5c8a;padding-bottom:10px;margin-bottom:8px;border-bottom:1px solid #0d3a5e33}
+.plate .pr{display:flex;justify-content:space-between;gap:12px;padding:7px 0}
+.plate .pr b{color:#072033;font-weight:500}
+@media(max-width:720px){.plate{display:none}}
 .hud{position:absolute;z-index:9;bottom:22px;left:clamp(22px,5vw,72px);right:clamp(22px,5vw,72px);
  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
  font-size:10px;letter-spacing:.22em;color:#0d3a5e;
@@ -93,6 +101,15 @@ footer{padding:50px 0 60px;font-size:10px;letter-spacing:.24em;color:#5b8ba3;
     <div class="sub2">Contemporary Soft Club</div>
   </div>
 
+  <div class="plate mono" id="plate">
+    <div class="pt">GXS / SS26 — TRANSIT INDEX</div>
+    <div class="pr"><span>SERIES</span><b>04 — CONTEMPORARY</b></div>
+    <div class="pr"><span>UNITS</span><b>08 GARMENTS</b></div>
+    <div class="pr"><span>PALETTE</span><b>POOL / ACID / SIGNAL</b></div>
+    <div class="pr"><span>RELEASE</span><b>04.18 · 09:00 JST</b></div>
+    <div class="pr"><span>ACCESS</span><b>MEMBERS 24H EARLY</b></div>
+  </div>
+
   <div class="hud mono">
     <span>LINE 04 · PLATFORM 2 · <b>NEXT 00:03</b></span>
     <span>35.6812 N / 139.7671 E</span>
@@ -116,14 +133,14 @@ footer{padding:50px 0 60px;font-size:10px;letter-spacing:.24em;color:#5b8ba3;
 <script>
 /* glyph rain */
 const G=document.getElementById('glyphs');
-const CH='渋谷白河永田町中目黒新橋品川五反田表参道恵比寿代々木';
+const CH='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ/·-';
 for(let i=0;i<26;i++){
   const c=document.createElement('div');c.className='gcol mono';
   let s='';for(let j=0;j<40;j++)s+=CH[Math.random()*CH.length|0];
-  c.textContent=s;c.style.left=(i*4+Math.random()*2)+'%';
+  c.textContent=s;c.style.left=(i*3.9+Math.random()*1.6)+'%';
   c.style.animationDuration=(14+Math.random()*26)+'s';
   c.style.animationDelay=(-Math.random()*30)+'s';
-  c.style.opacity=(.25+Math.random()*.6).toFixed(2);
+  c.style.opacity=(.4+Math.random()*.5).toFixed(2);
   G.appendChild(c);
 }
 /* floating rules + swatches */
@@ -136,7 +153,7 @@ boxes.forEach(([l,t,w,h],i)=>{
 const pal=[['#0e2f7a','#5ad9c8'],['#b6e02a','#0f6f5a'],['#ff5a3c','#ffd9c8'],['#1f8fd6','#eaf6f8']];
 pal.forEach((p,i)=>{
   const s=document.createElement('div');s.className='swatch';
-  s.style.cssText+=`--a:${p[0]};--b:${p[1]};left:${4+i*7}%;top:${62+((i%2)*9)}%;width:12%;height:16%`;
+  s.style.cssText+=`--a:${p[0]};--b:${p[1]};left:${3+i*24}%;top:${58+((i%2)*11)}%;width:15%;height:19%`;
   R.appendChild(s);
 });
 /* parallax */

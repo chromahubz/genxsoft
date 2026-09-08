@@ -18,17 +18,17 @@ body{background:var(--paper);color:#0b1f3a;
 .bar a{color:inherit;text-decoration:none;margin-left:18px}
 .bar a:hover{background:var(--acid)}
 
-.sleeve{position:relative;margin:22px 0;aspect-ratio:1/1;max-height:74svh;
- overflow:hidden;background:#bcd9f5;isolation:isolate}
-.blob{position:absolute;border-radius:50%;filter:blur(46px);mix-blend-mode:screen}
-.b1{width:78%;aspect-ratio:1;left:-14%;top:-18%;background:#2f6fe0;animation:d1 19s ease-in-out infinite alternate}
-.b2{width:56%;aspect-ratio:1;right:-8%;top:6%;background:#8fd8ff;animation:d2 23s ease-in-out infinite alternate}
-.b3{width:52%;aspect-ratio:1;left:6%;bottom:-16%;background:var(--acid);filter:blur(38px);
- mix-blend-mode:normal;opacity:.92;border-radius:44% 56% 60% 40%/48% 42% 58% 52%;
+.sleeve{position:relative;margin:22px auto;aspect-ratio:1/1;max-height:76svh;width:min(100%,76svh);
+ overflow:hidden;isolation:isolate;
+ background:linear-gradient(150deg,#5f9fe4,#a9d2f2 45%,#4f86d8)}
+.blob{position:absolute;border-radius:50%;filter:blur(46px);opacity:.85}
+.b1{width:84%;aspect-ratio:1;left:-16%;top:-22%;background:#1b4fc4;animation:d1 19s ease-in-out infinite alternate}
+.b2{width:60%;aspect-ratio:1;right:-10%;top:4%;background:#a8e4ff;animation:d2 23s ease-in-out infinite alternate}
+.b3{width:52%;aspect-ratio:1;left:6%;bottom:-16%;background:var(--acid);filter:blur(34px);opacity:.95;border-radius:44% 56% 60% 40%/48% 42% 58% 52%;
  animation:d3 17s ease-in-out infinite alternate}
-.b4{width:26%;aspect-ratio:1;right:16%;bottom:12%;background:#ff9ec4;animation:d2 13s ease-in-out infinite alternate-reverse}
+.b4{width:28%;aspect-ratio:1;right:14%;bottom:10%;background:#ffb6d2;animation:d2 13s ease-in-out infinite alternate-reverse}
 .dot{position:absolute;width:16px;height:16px;border-radius:50%;background:#0b1f3a;
- left:44%;top:24%;box-shadow:0 0 0 1px #0b1f3a55}
+ left:41%;top:56%;box-shadow:0 0 0 1px #0b1f3a55}
 @keyframes d1{to{transform:translate(16%,12%) scale(1.18)}}
 @keyframes d2{to{transform:translate(-14%,18%) scale(.86)}}
 @keyframes d3{to{transform:translate(22%,-14%) rotate(40deg) scale(1.1)}}
