@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEN X SOFT CLUB — WET PAINT</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--moss:#072a1e;--leaf:#0f4d33;--chart:#b8ff3d;--mint:#6fe8a8;--bone:#f2f5e6;--sage:#8fae86}
+body{background:var(--moss);color:var(--bone);overflow-x:hidden;
+ font:400 14px/1.6 "Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.mono{font-family:ui-monospace,Menlo,monospace;letter-spacing:.16em}
+
+/* ————— wet paint canvas ————— */
+.paint{position:fixed;inset:0;z-index:0;background:var(--moss)}
+canvas{width:100%;height:100%;display:block;filter:blur(26px) saturate(1.25) contrast(1.05)}
+.paint:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.4;
+ background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150'><filter id='n'><feTurbulence baseFrequency='.85' numOctaves='3'/></filter><rect width='150' height='150' filter='url(%23n)'/></svg>")}
+.vig{position:fixed;inset:0;z-index:1;pointer-events:none;
+ background:radial-gradient(110% 80% at 50% 42%,transparent 40%,#072a1ee0)}
+
+header{position:fixed;z-index:40;top:0;left:0;right:0;display:flex;justify-content:space-between;
+ align-items:center;padding:16px 26px;font-size:11px;letter-spacing:.34em}
+header nav a{color:#a9c9a4;text-decoration:none;margin-left:20px;font-size:10px}
+header nav a:hover{color:var(--chart)}
+
+.hero{position:relative;z-index:5;min-height:100svh;display:grid;align-content:center;
+ padding:110px clamp(22px,5vw,64px) 150px;pointer-events:none}
+.hero h1{font-size:clamp(44px,10.5vw,158px);font-weight:200;line-height:.86;letter-spacing:-.045em}
+.hero h1 b{display:block;font-weight:700;color:var(--chart);text-shadow:0 0 60px #b8ff3d4d}
+.hero p{margin-top:26px;max-width:38ch;color:#cfe4c6;font-size:16px;pointer-events:auto}
+
+/* ————— mixer HUD ————— */
+.hud{position:fixed;z-index:30;left:clamp(22px,5vw,64px);right:clamp(22px,5vw,64px);bottom:22px;
+ display:flex;gap:18px;align-items:center;flex-wrap:wrap;
+ background:#072a1ec4;backdrop-filter:blur(14px);border:1px solid #b8ff3d33;padding:12px 14px}
+.pigs{display:flex;gap:6px}
+.pig{width:30px;height:30px;border:1px solid #f2f5e633;cursor:pointer;transition:.18s;position:relative}
+.pig.on{border-color:var(--chart);transform:scale(1.14)}
+.pig.on:after{content:"";position:absolute;inset:-5px;border:1px solid #b8ff3d66}
+.hud .lab{font-size:9px;letter-spacing:.26em;color:var(--sage)}
+.hud .lab b{display:block;color:var(--bone);font-size:11px;letter-spacing:.1em;margin-top:3px;font-weight:500}
+.hud .mix{width:56px;height:30px;border:1px solid #f2f5e64d}
+.hud button{margin-left:auto;background:transparent;border:1px solid #b8ff3d66;color:var(--chart);
+ padding:9px 16px;font:inherit;font-size:10px;letter-spacing:.26em;cursor:pointer}
+.hud button:hover{background:var(--chart);color:var(--moss)}
+
+section{position:relative;z-index:5;background:#061f17;padding:90px clamp(22px,5vw,64px)}
+h2{font-size:10px;letter-spacing:.42em;color:var(--chart);margin-bottom:24px}
+.lede{font-size:clamp(19px,2.4vw,30px);font-weight:300;max-width:31ch;line-height:1.25;
+ color:#d4e8cb;margin-bottom:56px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.card{border:1px solid #ffffff14;overflow:hidden;background:#0a2b1f;cursor:pointer;transition:.25s}
+.card:hover{border-color:var(--chart);transform:translateY(-4px)}
+.card .sw{height:190px;position:relative;overflow:hidden}
+.card .sw i{position:absolute;inset:-25%;filter:blur(32px);transition:.6s cubic-bezier(.2,.8,.2,1);
+ background:radial-gradient(circle at 38% 40%,var(--a),transparent 60%),
+            radial-gradient(circle at 70% 70%,var(--b),transparent 58%),var(--c)}
+.card:hover .sw i{filter:blur(12px);transform:scale(1.18) rotate(-5deg)}
+.card .m{padding:13px;display:flex;justify-content:space-between;font-size:11px;letter-spacing:.14em}
+.card .m b{color:var(--chart);font-weight:400}
+footer{position:relative;z-index:5;background:#061f17;border-top:1px solid #ffffff14;
+ padding:26px clamp(22px,5vw,64px) 60px;display:flex;justify-content:space-between;
+ flex-wrap:wrap;gap:14px;font-size:10px;letter-spacing:.24em;color:var(--sage)}
+@media(max-width:700px){.hud .lab:nth-of-type(2){display:none}}
+</style>
+</head>
+<body>
+
+<div class="paint"><canvas id="c"></canvas></div>
+<div class="vig"></div>
+
+<header>
+  <span>GEN X SOFT CLUB</span>
+  <nav><a href="#idx">MIXER</a><a href="#idx">SHOP</a><a href="#idx">CLUB</a><a href="#idx">BAG (0)</a></nav>
+</header>
+
+<div class="hero">
+  <h1>WET PAINT.<b>DON'T LEAN.</b></h1>
+  <p>Drag anywhere. The pigment stays where you put it and dries slowly.
+  Whatever you mix becomes the season's colourway — the swatch below is yours.</p>
+</div>
+
+<div class="hud mono">
+  <div class="pigs" id="pigs"></div>
+  <div class="lab"><span>PIGMENT</span><b id="pn">CHARTREUSE</b></div>
+  <div class="mix" id="mix"></div>
+  <div class="lab"><span>YOUR MIX</span><b id="mh">—</b></div>
+  <div class="lab"><span>COVERAGE</span><b id="cv">0%</b></div>
+  <button id="clr">WASH OUT</button>
+</div>
+
+<section id="idx">
+  <p class="lede">Eight garments, dyed in whatever you just made.</p>
+  <h2>DYE LOT / 08</h2>
+  <div class="grid" id="grid"></div>
+</section>
+
+<footer class="mono">
+  <span>© GEN X SOFT CLUB</span><span>STILL TACKY TO THE TOUCH</span><span>SS26</span>
+</footer>
+
+<script>
+const PIG=[['CHARTREUSE','#b8ff3d'],['MINT','#6fe8a8'],['DEEP LEAF','#0f8f5a'],
+ ['BONE','#f2f5e6'],['MOSS','#2f6b3c'],['CITRON','#e8f56b']];
+
+const c=document.getElementById('c'),g=c.getContext('2d',{alpha:false});
+let W,H,DPR=Math.min(devicePixelRatio||1,2);
+function size(){W=c.width=innerWidth*DPR;H=c.height=innerHeight*DPR;wash()}
+function wash(){g.fillStyle='#072a1e';g.fillRect(0,0,W,H);painted=0}
+addEventListener('resize',size);
+
+let cur=PIG[0],painted=0,px=null,py=null;
+function dab(x,y,r,col){
+  const grd=g.createRadialGradient(x,y,0,x,y,r);
+  grd.addColorStop(0,col+'e0');grd.addColorStop(.55,col+'66');grd.addColorStop(1,col+'00');
+  g.fillStyle=grd;g.beginPath();g.arc(x,y,r,0,7);g.fill();
+  painted+=r*r;
+}
+addEventListener('pointermove',e=>{
+  const x=e.clientX*DPR,y=e.clientY*DPR;
+  if(px!==null){
+    const d=Math.hypot(x-px,y-py),steps=Math.max(1,Math.min(24,d/(9*DPR)));
+    for(let i=0;i<steps;i++){
+      const t=i/steps;
+      dab(px+(x-px)*t,py+(y-py)*t,(48+Math.random()*44)*DPR,cur[1]);
+    }
+  } else dab(x,y,60*DPR,cur[1]);
+  px=x;py=y;
+});
+
+/* slow dry: fade back toward the ground */
+setInterval(()=>{
+  g.fillStyle='rgba(7,42,30,0.045)';g.fillRect(0,0,W,H);
+  painted*=.965;
+  cv.textContent=Math.min(99,Math.round(painted/(W*H)*100*1.6))+'%';
+},110);
+
+/* pigment picker */
+const pigs=document.getElementById('pigs');
+PIG.forEach((p,i)=>{
+  const b=document.createElement('div');b.className='pig'+(i===0?' on':'');
+  b.style.background=p[1];b.title=p[0];
+  b.onclick=()=>{[...pigs.children].forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');cur=p;pn.textContent=p[0];};
+  pigs.appendChild(b);
+});
+clr.onclick=()=>{wash();mixed=[]};
+
+/* the mix = running average of what you've laid down */
+let mixed=[];
+addEventListener('pointermove',()=>{
+  mixed.push(cur[1]); if(mixed.length>90)mixed.shift();
+  const n=mixed.length; let r=0,gg=0,b=0;
+  mixed.forEach(h=>{r+=parseInt(h.slice(1,3),16);gg+=parseInt(h.slice(3,5),16);b+=parseInt(h.slice(5,7),16)});
+  const hex='#'+[r/n,gg/n,b/n].map(v=>Math.round(v).toString(16).padStart(2,'0')).join('');
+  mix.style.background=hex; mh.textContent=hex.toUpperCase();
+  document.querySelectorAll('.card .sw i').forEach(el=>el.style.setProperty('--b',hex));
+});
+
+size();
+
+/* dye lot */
+const P=[['SOFT SHELL ANORAK','¥42,000','#b8ff3d','#0f4d33'],['HALF-ZIP FLEECE','¥31,000','#6fe8a8','#07301f'],
+['MESH LAYER TEE','¥12,500','#e8f56b','#14563a'],['CARGO PANT','¥28,000','#0f8f5a','#052a1c'],
+['PACKABLE DUFFEL','¥34,000','#f2f5e6','#1d5c3c'],['NYLON SCARF','¥11,200','#b8ff3d','#083626'],
+['TERMINAL CAP','¥9,800','#6fe8a8','#0d4630'],['CREW SOCK ×3','¥4,400','#e8f56b','#062b1d']];
+document.getElementById('grid').innerHTML=P.map(([n,p,a,bg])=>
+ `<article class="card"><div class="sw"><i style="--a:${a};--b:#6fe8a8;--c:${bg}"></i></div>
+  <div class="m mono"><span>${n}</span><b>${p}</b></div></article>`).join('');
+</script>
+</body>
+</html>

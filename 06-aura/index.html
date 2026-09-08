@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEN X SOFT CLUB — AURA</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#3a1f2b;--soft:#9c6b5c;--paper:#fff4e8}
+body{background:var(--paper);color:var(--ink);overflow-x:hidden;cursor:crosshair;
+ font:400 14px/1.6 "Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.mono{font-family:ui-monospace,Menlo,monospace;letter-spacing:.16em}
+
+/* ————— the aura field ————— */
+.field{position:fixed;inset:0;z-index:0;overflow:hidden;background:#ffb98f}
+.blob{position:absolute;border-radius:50%;filter:blur(var(--bl,70px));
+ will-change:transform;transform:translate3d(0,0,0)}
+.field:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;
+ background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence baseFrequency='.9' numOctaves='2'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>")}
+.dot{position:fixed;z-index:6;width:14px;height:14px;border-radius:50%;background:#3a1f2b;
+ pointer-events:none;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+body.near .dot{width:26px;height:26px}
+
+header{position:fixed;z-index:20;top:0;left:0;right:0;display:flex;justify-content:space-between;
+ align-items:center;padding:18px 26px;font-size:11px;letter-spacing:.32em;color:#3a1f2b;
+ background:linear-gradient(#fff4e8b3,#fff4e800)}
+header nav a{color:inherit;text-decoration:none;margin-left:20px;font-size:10px}
+
+/* ————— hero ————— */
+.hero{position:relative;z-index:5;min-height:100svh;display:grid;align-content:center;
+ padding:120px clamp(22px,5vw,70px) 0;pointer-events:none}
+.hero h1{font-size:clamp(46px,11vw,168px);font-weight:200;line-height:.88;letter-spacing:-.045em;
+ color:#3a1f2b;mix-blend-mode:overlay}
+.hero h1 b{font-weight:700;display:block}
+.hero .sub{margin-top:26px;max-width:40ch;color:#4a2432;font-size:16px;
+ background:#fff4e8b8;backdrop-filter:blur(8px);padding:14px 16px;border-left:2px solid #3a1f2b;
+ pointer-events:auto}
+
+/* ————— cursor read-out ————— */
+.read{position:fixed;z-index:20;left:clamp(22px,5vw,70px);bottom:26px;
+ display:flex;gap:26px;align-items:center;flex-wrap:wrap;
+ background:#fff4e8cc;backdrop-filter:blur(12px);border:1px solid #3a1f2b26;padding:12px 16px;
+ font-size:10px;letter-spacing:.24em}
+.read .sw{width:34px;height:34px;border:1px solid #3a1f2b;transition:background .3s}
+.read b{display:block;font-size:12px;letter-spacing:.06em;font-weight:500;margin-top:3px}
+.read span{color:var(--soft)}
+
+/* ————— colourways ————— */
+section{position:relative;z-index:5;background:var(--paper);padding:90px clamp(22px,5vw,70px)}
+h2{font-size:10px;letter-spacing:.42em;color:var(--soft);margin-bottom:26px}
+.ways{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
+.way{cursor:pointer}
+.way .chip{height:170px;position:relative;overflow:hidden;background:#f6dcc4}
+.way .chip i{position:absolute;inset:-30%;border-radius:50%;filter:blur(38px);transition:.6s cubic-bezier(.2,.8,.2,1)}
+.way:hover .chip i{filter:blur(14px);transform:scale(1.2)}
+.way h3{margin-top:12px;font-size:14px;font-weight:500}
+.way p{font-size:10px;letter-spacing:.22em;color:var(--soft);margin-top:4px}
+.lede{font-size:clamp(19px,2.4vw,30px);font-weight:300;max-width:30ch;line-height:1.25;margin-bottom:60px}
+footer{position:relative;z-index:5;background:var(--paper);border-top:1px solid #3a1f2b26;
+ padding:26px clamp(22px,5vw,70px) 60px;display:flex;justify-content:space-between;
+ flex-wrap:wrap;gap:14px;font-size:10px;letter-spacing:.24em;color:var(--soft)}
+@media(max-width:640px){.read{display:none}.dot{display:none}}
+</style>
+</head>
+<body>
+
+<div class="field" id="field"></div>
+<div class="dot" id="dot"></div>
+
+<header>
+  <span>GEN X SOFT CLUB</span>
+  <nav><a href="#ways">COLOURWAYS</a><a href="#ways">SHOP</a><a href="#ways">CLUB</a></nav>
+</header>
+
+<div class="hero">
+  <h1>MOVE AND<b>IT MOVES.</b></h1>
+  <p class="sub">Eight colourways that behave like weather. Drag the cursor across the field —
+  the pigment leans toward you. Whatever it settles on, we'll cut it.</p>
+</div>
+
+<div class="read mono" id="read">
+  <div class="sw" id="sw"></div>
+  <div><span>NEAREST COLOURWAY</span><b id="nm">—</b></div>
+  <div><span>PIGMENT</span><b id="hx">—</b></div>
+  <div><span>PULL</span><b id="pl">0.00</b></div>
+</div>
+
+<section id="ways">
+  <p class="lede">Pick the weather. We'll make the coat.</p>
+  <h2>COLOURWAY INDEX / 08</h2>
+  <div class="ways" id="ways"></div>
+</section>
+
+<footer class="mono">
+  <span>© GEN X SOFT CLUB</span><span>PIGMENT MOVES, PRICES DON'T</span><span>SS26</span>
+</footer>
+
+<script>
+const WAYS=[
+ ['APRICOT','#ff9d6e'],['AMBER','#ffc247'],['TERRACOTTA','#d95f3b'],['CREAM','#fff1dc'],
+ ['DUSTY LILAC','#b09ad6'],['SAND','#e8c9a0'],['CLAY','#a8503c'],['PLUM','#3a1f2b']];
+/* darker pigments are tinted up in the field so they read as depth, not mud */
+const FIELD={'#a8503c':'#d4795f','#3a1f2b':'#a2718a'};
+
+/* field */
+const F=document.getElementById('field'),blobs=[];
+WAYS.forEach((w,i)=>{
+  const d=document.createElement('div');d.className='blob';
+  const sz=26+Math.random()*34;
+  d.style.cssText=`background:${FIELD[w[1]]||w[1]};width:${sz}vw;height:${sz}vw;`;
+  d.style.setProperty('--bl',(50+Math.random()*60)+'px');
+  d.style.opacity=(FIELD[w[1]]?.42:.6+Math.random()*.35).toFixed(2);
+  F.appendChild(d);
+  blobs.push({el:d,name:w[0],hex:w[1],
+    bx:Math.random(),by:Math.random(),        // base position 0..1
+    x:0,y:0,tx:0,ty:0,
+    k:(Math.random()<.3?-1:1)*(.25+Math.random()*.85), // pull (or push)
+    dr:.5+Math.random()*.9, ph:Math.random()*Math.PI*2});
+});
+function place(){const w=innerWidth,h=innerHeight;
+  blobs.forEach(b=>{const r=b.el.getBoundingClientRect();
+    b.px=b.bx*w-r.width/2;b.py=b.by*h-r.height/2})}
+place();addEventListener('resize',place);
+
+let mx=innerWidth/2,my=innerHeight/2,t=0,pull=0;
+addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY;
+  dot.style.left=mx+'px';dot.style.top=my+'px'});
+
+const dot=document.getElementById('dot');
+const sw=document.getElementById('sw'),nm=document.getElementById('nm'),
+      hx=document.getElementById('hx'),pl=document.getElementById('pl');
+
+function frame(){
+  t+=.006;
+  const cx=mx-innerWidth/2, cy=my-innerHeight/2;
+  let best=null,bd=1e9;
+  blobs.forEach(b=>{
+    b.tx=cx*b.k*.32 + Math.sin(t*b.dr+b.ph)*46;
+    b.ty=cy*b.k*.32 + Math.cos(t*b.dr*.8+b.ph)*40;
+    b.x+=(b.tx-b.x)*.045; b.y+=(b.ty-b.y)*.045;
+    b.el.style.transform=`translate3d(${b.px+b.x}px,${b.py+b.y}px,0)`;
+    const r=b.el.getBoundingClientRect();
+    const d=Math.hypot(mx-(r.left+r.width/2),my-(r.top+r.height/2));
+    if(d<bd){bd=d;best=b}
+  });
+  if(best){sw.style.background=best.hex;nm.textContent=best.name;hx.textContent=best.hex.toUpperCase();}
+  pull=Math.min(1,Math.hypot(cx,cy)/(innerWidth/2));
+  pl.textContent=pull.toFixed(2);
+  document.body.classList.toggle('near',bd<160);
+  requestAnimationFrame(frame);
+}
+frame();
+
+/* index */
+const box=document.getElementById('ways');
+WAYS.forEach(([n,c],i)=>{
+  const a=document.createElement('article');a.className='way';
+  a.innerHTML=`<div class="chip"><i style="background:${c};left:${-20+i*7}%;top:${-25+(i%3)*18}%"></i></div>
+   <h3>${n}</h3><p>NO. ${String(i+1).padStart(2,'0')} · ${c.toUpperCase()}</p>`;
+  a.onclick=()=>{const b=blobs[i];b.k=Math.abs(b.k)*1.9;setTimeout(()=>b.k/=1.9,1400)};
+  box.appendChild(a);
+});
+</script>
+</body>
+</html>
