@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEN X SOFT CLUB — VITRINE</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--lume:#7ff0e0;--glow:#c9fff6;--jade:#0e7a70;--con:#26282a;--dark:#111314;--edge:#3a3d3f}
+body{background:var(--dark);color:#dff8f3;
+ font:400 14px/1.6 "Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.mono{font-family:ui-monospace,Menlo,monospace;letter-spacing:.16em}
+
+/* concrete room */
+.room{position:fixed;inset:0;z-index:0;background:
+ radial-gradient(80% 60% at 50% 110%,#1c2021,#0c0e0f 70%),
+ url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='.7' numOctaves='4'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='.35'/></svg>")}
+.room:after{content:"";position:absolute;inset:0;
+ background:radial-gradient(60% 40% at 50% 45%,#7ff0e01f,transparent 70%)}
+
+header{position:fixed;z-index:40;top:0;left:0;right:0;display:flex;justify-content:space-between;
+ align-items:center;padding:16px 26px;font-size:11px;letter-spacing:.3em;
+ background:#0c0e0fcc;backdrop-filter:blur(14px);border-bottom:1px solid #ffffff12}
+header b{letter-spacing:.5em}
+header nav a{color:#8fb8b2;text-decoration:none;margin-left:20px;font-size:10px}
+header nav a:hover{color:var(--lume)}
+
+/* ————— the wall ————— */
+.wall-wrap{position:relative;z-index:5;min-height:100svh;display:grid;align-content:center;
+ padding:110px 0 40px;perspective:1400px}
+.hgroup{padding:0 clamp(22px,5vw,64px);margin-bottom:34px}
+.hgroup h1{font-size:clamp(34px,6.4vw,86px);font-weight:200;letter-spacing:-.03em;line-height:1}
+.hgroup h1 b{font-weight:700;color:var(--lume);text-shadow:0 0 44px #7ff0e066}
+.hgroup p{margin-top:14px;max-width:46ch;color:#87a8a3}
+
+.wall{display:flex;gap:6px;padding:0 clamp(22px,5vw,64px) 26px;overflow-x:auto;
+ scroll-snap-type:x mandatory;transform:rotateY(-4deg);transform-style:preserve-3d}
+.wall::-webkit-scrollbar{height:2px}.wall::-webkit-scrollbar-thumb{background:var(--jade)}
+.brick{flex:0 0 clamp(170px,22vw,250px);scroll-snap-align:center;height:min(56svh,440px);
+ position:relative;cursor:pointer;border:1px solid #ffffff1a;
+ background:linear-gradient(150deg,#7ff0e024,#7ff0e00d 40%,#7ff0e01f);
+ backdrop-filter:blur(2px);transition:.45s cubic-bezier(.2,.8,.2,1);overflow:hidden}
+.brick:before{content:"";position:absolute;inset:0;
+ background:linear-gradient(180deg,#c9fff62e,transparent 30%,transparent 70%,#c9fff626);
+ box-shadow:inset 0 0 60px #7ff0e033}
+.brick:after{content:"";position:absolute;left:0;right:0;top:0;height:100%;
+ background:repeating-linear-gradient(0deg,transparent 0 24%,#ffffff14 24% 25%)}
+.brick .lite{position:absolute;inset:12% 10%;filter:blur(26px);opacity:.85;
+ background:radial-gradient(circle at 40% 35%,var(--c,#9ffff0),transparent 65%);transition:.45s}
+.brick:hover{flex-basis:clamp(210px,30vw,340px);border-color:#7ff0e0;
+ box-shadow:0 0 60px #7ff0e03d,0 30px 70px #000a}
+.brick:hover .lite{filter:blur(10px);opacity:1;inset:6%}
+.brick .lab{position:absolute;left:0;right:0;bottom:0;padding:14px;
+ background:linear-gradient(#0000,#0c0e0fd9);font-size:10px;letter-spacing:.22em}
+.brick .lab b{display:block;font-size:13px;letter-spacing:.04em;font-weight:500;margin-bottom:4px}
+.brick .lab i{font-style:normal;color:var(--lume)}
+.brick .no{position:absolute;top:12px;left:12px;font-size:9px;letter-spacing:.28em;color:#0c0e0f;
+ background:var(--lume);padding:3px 7px}
+
+.arrow{padding:0 clamp(22px,5vw,64px);display:flex;gap:10px;align-items:center;
+ font-size:10px;letter-spacing:.3em;color:#6d918c}
+.arrow button{background:transparent;border:1px solid #ffffff26;color:#dff8f3;
+ width:38px;height:30px;cursor:pointer;font:inherit}
+.arrow button:hover{border-color:var(--lume);color:var(--lume)}
+
+/* ————— stairwell / info ————— */
+section{position:relative;z-index:5;padding:100px clamp(22px,5vw,64px)}
+.down{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.3em;
+ border:1px solid var(--lume);color:var(--lume);padding:12px 20px;text-decoration:none}
+.down:hover{background:var(--lume);color:#0c0e0f}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:44px}
+h2{font-size:10px;letter-spacing:.42em;color:var(--lume);margin-bottom:18px}
+.two p{color:#93b3ae;max-width:46ch}
+dl{margin-top:24px;font-size:12px}
+dl div{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #ffffff12}
+dt{color:#6d918c;letter-spacing:.18em;font-size:10px}
+dd{color:#dff8f3}
+form{margin-top:26px;display:flex;border:1px solid #ffffff26}
+form input{flex:1;background:transparent;border:0;color:#dff8f3;padding:14px;font:inherit;outline:0}
+form input::placeholder{color:#5d807b;letter-spacing:.2em;font-size:11px}
+form button{background:var(--lume);border:0;color:#0c0e0f;padding:0 22px;font:inherit;
+ font-size:10px;letter-spacing:.28em;cursor:pointer}
+footer{position:relative;z-index:5;border-top:1px solid #ffffff12;padding:34px clamp(22px,5vw,64px) 60px;
+ display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:10px;letter-spacing:.24em;color:#5d807b}
+@media(max-width:760px){.two{grid-template-columns:1fr;gap:40px}}
+</style>
+</head>
+<body>
+<div class="room"></div>
+
+<header>
+  <b>GEN X SOFT CLUB</b>
+  <nav><a href="#">VITRINE</a><a href="#info">STORE</a><a href="#info">CLUB</a><a href="#">BAG (0)</a></nav>
+</header>
+
+<div class="wall-wrap">
+  <div class="hgroup">
+    <h1>BACKLIT.<br><b>SHOP THE WALL.</b></h1>
+    <p>Nine illuminated panels on level B1. Each one holds a single garment.
+    Touch a panel to bring it forward.</p>
+  </div>
+  <div class="wall" id="wall"></div>
+  <div class="arrow mono">
+    <button id="prev">←</button><button id="next">→</button>
+    <span>↙ DOWN TO SHOP — LEVEL B1</span>
+  </div>
+</div>
+
+<section id="info">
+  <a class="down" href="#">↙ DOWN TO SHOP</a>
+  <div class="two">
+    <div>
+      <h2>THE ROOM</h2>
+      <p>A concrete floor, a glass wall, and a light that never quite turns off.
+      The vitrine is a shop only between 11:00 and 20:00 — the rest of the time it's
+      a very expensive lamp.</p>
+      <dl>
+        <div><dt>ADDRESS</dt><dd>B1, 4-11-2 Jingumae</dd></div>
+        <div><dt>HOURS</dt><dd>11:00 — 20:00 DAILY</dd></div>
+        <div><dt>DROP</dt><dd>SS26 · 04.18 · 09:00 JST</dd></div>
+        <div><dt>STOCK</dt><dd>400 NUMBERED UNITS</dd></div>
+      </dl>
+    </div>
+    <div>
+      <h2>MEMBERSHIP</h2>
+      <p>Members get the wall twenty-four hours early, plus the monthly mix and
+      a key to the back stairs. No fee, no newsletter tone of voice.</p>
+      <form id="f"><input type="email" placeholder="EMAIL ADDRESS" required><button>JOIN</button></form>
+      <p class="mono" id="msg" style="margin-top:14px;font-size:10px;color:var(--lume);min-height:14px"></p>
+    </div>
+  </div>
+</section>
+
+<footer class="mono">
+  <span>© GEN X SOFT CLUB</span><span>LEVEL B1 · LIGHTS ON</span><span>CONTEMPORARY SOFTWEAR</span>
+</footer>
+
+<script>
+const P=[['SOFT SHELL ANORAK','OUTER','¥42,000','#9ffff0'],
+['HALF-ZIP FLEECE','MID','¥31,000','#b6ffe4'],
+['MESH LAYER TEE','BASE','¥12,500','#7fe8ff'],
+['CARGO PANT — HAZE','LOWER','¥28,000','#8ff0c8'],
+['PACKABLE DUFFEL','CARRY','¥34,000','#c9fff6'],
+['NYLON SCARF','ACC','¥11,200','#6fe0d4'],
+['TERMINAL CAP','ACC','¥9,800','#a8ffe8'],
+['CREW SOCK ×3','ACC','¥4,400','#7ff0e0'],
+['ARCHIVE PARKA','OUTER','¥58,000','#d6fff8']];
+const W=document.getElementById('wall');
+P.forEach(([n,c,p,col],i)=>{
+  const b=document.createElement('article');b.className='brick';
+  b.innerHTML=`<div class="lite" style="--c:${col}"></div>
+   <span class="no mono">${String(i+1).padStart(2,'0')}</span>
+   <div class="lab mono"><b>${n}</b><span>${c}</span> · <i>${p}</i></div>`;
+  W.appendChild(b);
+});
+const step=()=>W.firstElementChild.getBoundingClientRect().width+6;
+next.onclick=()=>W.scrollBy({left:step()*2,behavior:'smooth'});
+prev.onclick=()=>W.scrollBy({left:-step()*2,behavior:'smooth'});
+
+document.getElementById('f').onsubmit=e=>{e.preventDefault();
+ document.getElementById('msg').textContent='◆ YOU\'RE ON THE LIST. THE WALL OPENS EARLY FOR YOU.';
+ e.target.reset()};
+</script>
+</body>
+</html>

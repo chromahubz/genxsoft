@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEN X SOFT CLUB — TERMINAL VELOCITY</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --aqua:#5ff2d4; --deep:#00b39a; --pool:#0a3f4a; --ice:#e8fffb;
+  --sun:#d8f230; --ink:#02171c;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink); color:var(--ice);
+  font:400 14px/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+.mono{font-family:ui-monospace,"SFMono-Regular",Menlo,monospace}
+
+/* ————— motion-blur field ————— */
+.field{position:fixed;inset:0;z-index:0;overflow:hidden}
+.streak{
+  position:absolute;left:-20%;width:140%;height:var(--h,90px);
+  filter:blur(var(--b,26px));opacity:var(--o,.75);
+  transform:rotate(var(--r,-7deg)) translateY(var(--y,0));
+  background:linear-gradient(90deg,transparent,var(--c,var(--aqua)) 18%,#fff 47%,var(--c2,var(--deep)) 78%,transparent);
+  animation:slide var(--s,14s) linear infinite;
+}
+@keyframes slide{from{transform:rotate(var(--r,-7deg)) translate(-14%,var(--y,0))}
+                 to{transform:rotate(var(--r,-7deg)) translate(14%,var(--y,0))}}
+.field:after{content:"";position:absolute;inset:0;
+  background:radial-gradient(120% 80% at 50% 8%,transparent,#02171c 78%)}
+
+/* grain */
+.grain{position:fixed;inset:-50%;z-index:1;pointer-events:none;opacity:.16;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+  animation:jit .6s steps(2) infinite}
+@keyframes jit{0%{transform:translate(0,0)}50%{transform:translate(-3%,2%)}100%{transform:translate(2%,-2%)}}
+
+/* ————— chrome ————— */
+header{position:fixed;top:0;left:0;right:0;z-index:20;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 26px;backdrop-filter:blur(14px);
+  background:linear-gradient(#02171ccc,#02171c00);
+  border-bottom:1px solid #5ff2d422}
+.wordmark{font-weight:700;letter-spacing:.42em;font-size:13px}
+.wordmark b{color:var(--aqua)}
+nav{display:flex;gap:22px;font-size:11px;letter-spacing:.2em}
+nav a{color:#bfeee6;text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+nav a:hover{color:var(--sun);border-color:var(--sun)}
+
+/* ————— hero ————— */
+.hero{position:relative;z-index:5;min-height:100svh;display:grid;
+  grid-template-rows:1fr auto;padding:120px 26px 26px}
+.big{align-self:center}
+.big h1{
+  font-size:clamp(58px,15.5vw,230px);line-height:.82;font-weight:800;
+  letter-spacing:-.045em;text-transform:uppercase;
+  background:linear-gradient(96deg,#fff,var(--aqua) 42%,var(--sun) 72%,#fff);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 42px #5ff2d43d)}
+.big h1 span{display:block}
+.big h1 span:nth-child(2){margin-left:.14em;opacity:.92}
+.tag{max-width:44ch;margin-top:26px;color:#9fded4;font-size:15px}
+
+.board{border-top:1px solid #5ff2d433;padding-top:12px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2px}
+.row{display:grid;grid-template-columns:auto 1fr;gap:12px;
+  padding:9px 10px;background:#0b3a4133;font-size:11px;letter-spacing:.12em}
+.row b{color:var(--sun);font-weight:500}
+.row i{font-style:normal;color:#7fc9be}
+.flip{display:inline-block;animation:flip .09s steps(1) 3}
+@keyframes flip{50%{opacity:.25}}
+
+/* ————— rail ————— */
+section{position:relative;z-index:5;padding:110px 26px}
+h2{font-size:11px;letter-spacing:.4em;color:var(--aqua);margin-bottom:26px}
+.rail{display:flex;gap:14px;overflow-x:auto;padding-bottom:18px;scroll-snap-type:x mandatory}
+.rail::-webkit-scrollbar{height:3px}
+.rail::-webkit-scrollbar-thumb{background:var(--deep)}
+.card{flex:0 0 74vw;max-width:340px;scroll-snap-align:start;
+  border:1px solid #5ff2d42e;background:#04252bb0;backdrop-filter:blur(10px)}
+.card .img{height:300px;position:relative;overflow:hidden}
+.card .img div{position:absolute;inset:-25%;
+  background:conic-gradient(from var(--a,0deg) at 40% 60%,var(--deep),var(--sun),#2b5cff,var(--aqua),var(--deep));
+  filter:blur(34px) saturate(1.5);transition:.7s cubic-bezier(.2,.8,.2,1)}
+.card:hover .img div{filter:blur(9px) saturate(2);transform:scale(1.15) rotate(6deg)}
+.card .img:after{content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,#0000 0 3px,#02171c33 3px 4px)}
+.card .meta{display:flex;justify-content:space-between;padding:12px;
+  font-size:11px;letter-spacing:.14em;border-top:1px solid #5ff2d42e}
+.card .meta b{color:var(--sun);font-weight:400}
+
+footer{position:relative;z-index:5;padding:60px 26px;border-top:1px solid #5ff2d422;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;
+  font-size:11px;letter-spacing:.2em;color:#6fb3aa}
+@media(max-width:640px){nav{display:none}}
+</style>
+</head>
+<body>
+
+<div class="field" id="field"></div>
+<div class="grain"></div>
+
+<header>
+  <div class="wordmark">GEN<b>·</b>X SOFT CLUB</div>
+  <nav>
+    <a href="#drop">DROP 04</a><a href="#drop">ARCHIVE</a><a href="#drop">TRANSIT</a><a href="#drop">CART (0)</a>
+  </nav>
+  <div class="mono" style="font-size:11px;color:#6fb3aa" id="clock">--:--:--</div>
+</header>
+
+<div class="hero">
+  <div class="big">
+    <h1><span>TERMINAL</span><span>VELOCITY</span></h1>
+    <p class="tag mono">Softwear for people who are always eleven minutes from somewhere else.
+    Cut for the concourse. Season 04 — <b style="color:#d8f230">now boarding</b>.</p>
+  </div>
+
+  <div class="board mono" id="board"></div>
+</div>
+
+<section id="drop">
+  <h2>DEPARTING SHORTLY</h2>
+  <div class="rail" id="rail"></div>
+</section>
+
+<footer class="mono">
+  <span>GEN X SOFT CLUB © NON-PLACE INDUSTRIES</span>
+  <span>GATE B12 — OPEN 24H</span>
+  <span>NO REFUNDS AFTER TAKEOFF</span>
+</footer>
+
+<script>
+const F=document.getElementById('field');
+const cols=[['#5ff2d4','#00b39a'],['#d8f230','#5ff2d4'],['#2b5cff','#00b39a'],['#ffffff','#5ff2d4'],['#00e0c0','#0a3f4a']];
+for(let i=0;i<14;i++){
+  const s=document.createElement('div');s.className='streak';
+  const c=cols[i%cols.length];
+  s.style.setProperty('--c',c[0]);s.style.setProperty('--c2',c[1]);
+  s.style.setProperty('--h',(30+Math.random()*130)+'px');
+  s.style.setProperty('--b',(14+Math.random()*40)+'px');
+  s.style.setProperty('--o',(.28+Math.random()*.5).toFixed(2));
+  s.style.setProperty('--r',(-14+Math.random()*10).toFixed(1)+'deg');
+  s.style.setProperty('--s',(9+Math.random()*16).toFixed(1)+'s');
+  s.style.top=(Math.random()*115-8)+'%';
+  s.style.animationDelay=(-Math.random()*20)+'s';
+  F.appendChild(s);
+}
+
+const DEST=[['MILAN','MXP','ON TIME'],['SEOUL','ICN','BOARDING'],['OSAKA','KIX','ON TIME'],
+ ['BERLIN','BER','DELAYED'],['LISBON','LIS','GATE OPEN'],['TAIPEI','TPE','ON TIME'],
+ ['MONTREAL','YUL','FINAL CALL'],['ATHENS','ATH','ON TIME']];
+const B=document.getElementById('board');
+DEST.forEach(([c,i,s])=>{
+  const r=document.createElement('div');r.className='row';
+  r.innerHTML=`<i>${i}</i><span>${c} &nbsp;·&nbsp; <b>${s}</b></span>`;
+  B.appendChild(r);
+});
+setInterval(()=>{
+  const rows=[...B.children];const r=rows[Math.random()*rows.length|0];
+  const b=r.querySelector('b');b.classList.add('flip');
+  setTimeout(()=>{b.textContent=['ON TIME','BOARDING','DELAYED','GATE OPEN','FINAL CALL'][Math.random()*5|0];
+    b.classList.remove('flip')},300);
+},1800);
+
+const PROD=[['SOFT SHELL ANORAK','¥ 42,000','04/01'],['MESH LAYER TEE','¥ 12,500','04/02'],
+ ['CARGO PANT — HAZE','¥ 28,000','04/03'],['PACKABLE DUFFEL','¥ 34,000','04/04'],
+ ['TERMINAL CAP','¥ 9,800','04/05'],['NYLON SCARF — POOL','¥ 11,200','04/06']];
+const R=document.getElementById('rail');
+PROD.forEach(([n,p,sk],i)=>{
+  const d=document.createElement('article');d.className='card';
+  d.innerHTML=`<div class="img"><div style="--a:${i*61}deg"></div></div>
+    <div class="meta mono"><span>${n}</span><b>${p}</b></div>
+    <div class="meta mono" style="border-top:0;opacity:.6"><span>SKU ${sk}</span><span>ADD →</span></div>`;
+  R.appendChild(d);
+});
+
+const C=document.getElementById('clock');
+setInterval(()=>{C.textContent=new Date().toISOString().slice(11,19)+' Z'},1000);
+</script>
+</body>
+</html>
