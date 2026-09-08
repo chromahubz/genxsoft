@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEN X SOFT CLUB — SURFACE TENSION</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--night:#0a0f2b;--indigo:#1e2b6e;--cop:#c4703a;--brass:#e0a95c;--pale:#f0e2cf;--dim:#8c93bd}
+body{background:var(--night);color:var(--pale);overflow-x:hidden;
+ font:400 14px/1.6 "Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.mono{font-family:ui-monospace,Menlo,monospace;letter-spacing:.16em}
+
+.pool{position:fixed;inset:0;z-index:0;background:var(--night)}
+.pool canvas{width:100%;height:100%;display:block;filter:blur(22px) saturate(1.15)}
+.pool:after{content:"";position:absolute;inset:0;pointer-events:none;
+ background:radial-gradient(100% 80% at 50% 40%,#0a0f2b3d 20%,#0a0f2bee);opacity:.95}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.36;
+ background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150'><filter id='n'><feTurbulence baseFrequency='.85' numOctaves='3'/></filter><rect width='150' height='150' filter='url(%23n)'/></svg>")}
+
+header{position:fixed;z-index:40;top:0;left:0;right:0;display:flex;justify-content:space-between;
+ align-items:center;padding:16px 26px;font-size:11px;letter-spacing:.34em}
+header nav a{color:#9aa2cc;text-decoration:none;margin-left:20px;font-size:10px}
+header nav a:hover{color:var(--brass)}
+
+.hero{position:relative;z-index:5;min-height:100svh;display:grid;align-content:center;
+ padding:110px clamp(22px,5vw,64px) 150px;pointer-events:none}
+h1{font-size:clamp(42px,10vw,158px);font-weight:200;line-height:.88;letter-spacing:-.045em}
+h1 b{display:block;font-weight:700;
+ background:linear-gradient(96deg,var(--brass),var(--cop) 52%,var(--pale));
+ -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin-top:26px;max-width:38ch;color:#c3c9e6;font-size:16px;pointer-events:auto}
+
+.gauge{position:fixed;z-index:30;left:clamp(22px,5vw,64px);right:clamp(22px,5vw,64px);bottom:22px;
+ display:flex;gap:24px;align-items:center;flex-wrap:wrap;font-size:10px;letter-spacing:.24em;
+ color:#8c93bd;border-top:1px solid #e0a95c33;padding-top:12px;
+ background:linear-gradient(#0a0f2b00,#0a0f2bcc)}
+.gauge b{color:var(--pale);font-weight:400}
+.gauge button{margin-left:auto;background:transparent;border:1px solid #e0a95c66;color:var(--brass);
+ padding:8px 15px;font:inherit;font-size:10px;letter-spacing:.26em;cursor:pointer}
+.gauge button:hover{background:var(--brass);color:var(--night)}
+
+section{position:relative;z-index:5;background:#070b21;padding:90px clamp(22px,5vw,64px)}
+h2{font-size:10px;letter-spacing:.42em;color:var(--brass);margin-bottom:22px}
+.lede{font-size:clamp(19px,2.4vw,30px);font-weight:300;max-width:31ch;line-height:1.25;
+ color:#dfd2c0;margin-bottom:54px}
+.rack{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.pc{border:1px solid #e0a95c26;overflow:hidden;background:#0d1330;cursor:pointer;transition:.25s}
+.pc:hover{border-color:var(--brass);transform:translateY(-4px)}
+.pc .s{height:200px;position:relative;overflow:hidden}
+.pc .s i{position:absolute;inset:-28%;filter:blur(30px);transition:.6s cubic-bezier(.2,.8,.2,1);
+ background:radial-gradient(circle at 38% 36%,var(--a),transparent 60%),
+            radial-gradient(circle at 72% 72%,var(--b),transparent 58%),var(--c)}
+.pc:hover .s i{filter:blur(11px);transform:scale(1.18) rotate(-4deg)}
+.pc .m{padding:13px;display:flex;justify-content:space-between;font-size:11px;letter-spacing:.13em}
+.pc .m b{color:var(--brass);font-weight:400}
+footer{position:relative;z-index:5;background:#070b21;border-top:1px solid #e0a95c26;
+ padding:26px clamp(22px,5vw,64px) 60px;display:flex;justify-content:space-between;
+ flex-wrap:wrap;gap:14px;font-size:10px;letter-spacing:.24em;color:#8c93bd}
+</style>
+</head>
+<body>
+
+<div class="pool"><canvas id="c"></canvas></div>
+<div class="grain"></div>
+
+<header>
+  <span>GEN X SOFT CLUB</span>
+  <nav><a href="#idx">SURFACE</a><a href="#idx">SHOP</a><a href="#idx">CLUB</a><a href="#idx">BAG (0)</a></nav>
+</header>
+
+<div class="hero">
+  <h1>DON'T TOUCH<b>THE WATER.</b></h1>
+  <p>Too late. Every move you make propagates, reflects off the edges and
+  comes back to meet itself. Deep-dyed indigo, copper hardware, SS26.</p>
+</div>
+
+<div class="gauge mono">
+  <span>WAVE ENERGY <b id="we">0.00</b></span>
+  <span>DAMPING <b id="dm">0.982</b></span>
+  <span>REFLECTIONS <b>ON</b></span>
+  <button id="drop">DROP A STONE</button>
+</div>
+
+<section id="idx">
+  <p class="lede">Eight pieces, dyed the colour of deep water at dusk.</p>
+  <h2>THE POOL / 08</h2>
+  <div class="rack" id="rack"></div>
+</section>
+
+<footer class="mono">
+  <span>© GEN X SOFT CLUB</span><span>STILL WATER, LOUD CLOTHES</span><span>SS26</span>
+</footer>
+
+<script>
+/* ————— two-buffer wave propagation ————— */
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+let W,H,prev,cur,img,DAMP=.982;
+function init(){
+  W=Math.max(80,Math.round(innerWidth/9));H=Math.max(50,Math.round(innerHeight/9));
+  cv.width=W;cv.height=H;
+  prev=new Float32Array(W*H);cur=new Float32Array(W*H);
+  img=ctx.createImageData(W,H);
+}
+init();addEventListener('resize',init);
+
+/* height -> indigo → copper → pale ramp */
+const RAMP=[];
+(function(){
+  const stops=[[10,15,43],[30,43,110],[60,60,150],[196,112,58],[224,169,92],[240,226,207]];
+  for(let i=0;i<256;i++){
+    const t=i/255*(stops.length-1), k=Math.min(stops.length-2,t|0), f=t-k;
+    const a=stops[k],b=stops[k+1];
+    RAMP.push([a[0]+(b[0]-a[0])*f, a[1]+(b[1]-a[1])*f, a[2]+(b[2]-a[2])*f]);
+  }
+})();
+
+function drop(x,y,power){
+  const i=(y|0)*W+(x|0);
+  if(x<2||y<2||x>W-3||y>H-3)return;
+  prev[i]+=power;
+  prev[i-1]+=power*.5;prev[i+1]+=power*.5;
+  prev[i-W]+=power*.5;prev[i+W]+=power*.5;
+}
+
+let energy=0;
+function step(){
+  for(let y=1;y<H-1;y++){
+    for(let x=1;x<W-1;x++){
+      const i=y*W+x;
+      cur[i]=((prev[i-1]+prev[i+1]+prev[i-W]+prev[i+W])*.5-cur[i])*DAMP;
+    }
+  }
+  const t=prev;prev=cur;cur=t;                 // swap buffers
+  const d=img.data;let e=0;
+  for(let i=0;i<W*H;i++){
+    const v=prev[i];e+=v<0?-v:v;
+    let c=(v*88+58)|0; c=c<0?0:c>255?255:c;
+    const col=RAMP[c],o=i*4;
+    d[o]=col[0];d[o+1]=col[1];d[o+2]=col[2];d[o+3]=255;
+  }
+  ctx.putImageData(img,0,0);
+  energy+=(e/(W*H)-energy)*.1;
+  we.textContent=energy.toFixed(2);
+  requestAnimationFrame(step);
+}
+step();
+
+let px=null,py=null;
+addEventListener('pointermove',e=>{
+  const x=e.clientX/innerWidth*W, y=e.clientY/innerHeight*H;
+  if(px!==null){
+    const steps=Math.max(1,Math.min(14,Math.hypot(x-px,y-py)));
+    for(let i=0;i<steps;i++){const t=i/steps;drop(px+(x-px)*t,py+(y-py)*t,1.15)}
+  } else drop(x,y,1.5);
+  px=x;py=y;
+});
+document.getElementById('drop').onclick=()=>{
+  for(let i=0;i<6;i++)drop(4+Math.random()*(W-8),4+Math.random()*(H-8),15);
+};
+/* a slow idle pulse so the surface is never dead */
+setInterval(()=>{if(energy<.03)drop(4+Math.random()*(W-8),4+Math.random()*(H-8),5)},2600);
+
+const P=[['DEEP-DYE ANORAK','¥42,000','#1e2b6e','#c4703a','#0b1130'],
+['COPPER-ZIP FLEECE','¥31,000','#c4703a','#e0a95c','#241129'],
+['SURFACE MESH TEE','¥12,500','#3c4ba0','#f0e2cf','#111a44'],
+['TIDE CARGO','¥28,000','#0a0f2b','#3c4ba0','#080c22'],
+['STILL DUFFEL','¥34,000','#e0a95c','#c4703a','#2b1a12'],
+['RIPPLE SCARF','¥11,200','#f0e2cf','#3c4ba0','#1b2350'],
+['BRASS CAP','¥9,800','#e0a95c','#1e2b6e','#2a1c10'],
+['REFLECT SOCK ×3','¥4,400','#c4703a','#1e2b6e','#141a3d']];
+document.getElementById('rack').innerHTML=P.map(([n,p,a,b,c])=>
+ `<article class="pc"><div class="s"><i style="--a:${a};--b:${b};--c:${c}"></i></div>
+  <div class="m mono"><span>${n}</span><b>${p}</b></div></article>`).join('');
+</script>
+</body>
+</html>
